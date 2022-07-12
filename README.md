@@ -20,7 +20,8 @@ AUTH_ERROR - Payment authorization failed
 
 #### State machine -
 
-![](/home/knoldus/Downloads/payment.drawio.png)
+![image](https://user-images.githubusercontent.com/25796983/178562003-a9d4e91e-c306-4a7e-952c-740bcddc334e.png)
+
 
 
 ### How to Run- 
