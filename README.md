@@ -1,4 +1,4 @@
-# spring-state-machine-demo
+# axon-mongo-demo-application
 
 This template demonstrating the pre-authorization payment mechanism using Axon framework with event sourcing.
 Spring boot application consuming events from kafka, payment aggregate changing the behavior w.r.t the command and  event and persisting state to the mongo db.
