@@ -107,6 +107,15 @@ Check logs authorization will be done if criteria met i.e, pre-authorization alr
 - state will change from PRE_auth to AUTH, if auth approved.
 - state will change from PRE_auth_ERROR to AUTH_ERROR, if auth declined.
 
+### Query payment for if
+ There is a rest controller to get payment for the id
+
+```
+http://localhost:8080/payments/113/getPayments
+```
+
+
+
 
 
 
