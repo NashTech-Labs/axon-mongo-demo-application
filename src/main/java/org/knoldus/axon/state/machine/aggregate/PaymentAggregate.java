@@ -37,18 +37,8 @@ public class PaymentAggregate {
     @CommandHandler
     public PaymentAggregate(CheckIn checkIn) {
 
-        LOGGER.info("check in received for Id - {}.", checkIn.getCharge().getId());
-        AggregateLifecycle.apply(new PreAuthorize(checkIn.getId(),
-               checkIn.getCharge()));
-    }
-
-    @EventSourcingHandler
-    public void on(PreAuthorize preAuthorize) {
-
-        Charge charge = preAuthorize.getCharge();
+        final Charge charge = checkIn.getCharge();
         LOGGER.info("Pre Authorization event for id - {}.", charge.getId());
-        this.paymentId = preAuthorize.getCharge().getId();
-        this.paymentState = PaymentState.NEW;
         if (charge.getAvailableAmount()
                 .compareTo(charge.getHoldAmount())>0) {
 
@@ -70,7 +60,6 @@ public class PaymentAggregate {
     public void on(PreAuthorizationApprove preAuthorizationApprove) {
 
         Charge charge = preAuthorizationApprove.getCharge();
-        LOGGER.info("Pre authorization done, Enjoy the services id - {}.", charge.getId());
         this.paymentId = charge.getId();
         this.paymentState = PaymentState.PRE_AUTH;
     }
@@ -79,7 +68,6 @@ public class PaymentAggregate {
     public void on(PreAuthorizationDeclined preAuthorizationDeclined) {
 
         Charge charge = preAuthorizationDeclined.getCharge();
-        LOGGER.info("Pre authorization failed, provide another card id - {}.", charge.getId());
         this.paymentId = charge.getId();
         this.paymentState = PaymentState.PRE_AUTH_ERROR;
     }
@@ -87,15 +75,8 @@ public class PaymentAggregate {
     @CommandHandler
     public void on(CheckOut checkOut) {
 
-        LOGGER.info("check out received for Id - {}.", checkOut.getCharge().getId());
-        AggregateLifecycle.apply(new Authorize(checkOut.getId(),
-                checkOut.getCharge()));
-    }
-
-    @EventSourcingHandler
-    public void on(Authorize authorize) {
-
-        Charge charge = authorize.getCharge();
+        final Charge charge = checkOut.getCharge();
+        LOGGER.info("check out received for Id - {}.", charge.getId());
         LOGGER.info("Authorization event for id - {}.", charge.getId());
         if (charge.isAuthorize()) {
 
@@ -110,16 +91,13 @@ public class PaymentAggregate {
             AggregateLifecycle.apply(new AuthorizationDeclined(charge.getId(),
                     charge));
         }
-
     }
+
 
     @EventSourcingHandler
     public void on(AuthorizationApprove authorizationApprove) {
 
         Charge charge = authorizationApprove.getCharge();
-        LOGGER.info("Authorization done, captured amount {} " +
-                        "from you card id - {}, visit again",
-                charge.getHoldAmount(), charge.getId());
         this.paymentId = charge.getId();
         this.paymentState = PaymentState.AUTH;
     }

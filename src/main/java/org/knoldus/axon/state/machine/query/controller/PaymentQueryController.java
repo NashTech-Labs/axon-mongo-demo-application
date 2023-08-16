@@ -2,11 +2,8 @@ package org.knoldus.axon.state.machine.query.controller;
 
 import lombok.AllArgsConstructor;
 import org.axonframework.queryhandling.QueryGateway;
-import org.knoldus.axon.state.machine.aggregate.PaymentState;
 import org.knoldus.axon.state.machine.query.PaymentQuery;
 import org.knoldus.axon.state.machine.query.PaymentsQueryResult;
-import org.knoldus.axon.state.machine.query.entity.PaymentEntity;
-import org.knoldus.axon.state.machine.services.ExecuteAuthorization;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
