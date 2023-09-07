@@ -13,6 +13,17 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Axon-mongo-demo-application</name>
 	<description>Demo project with axon and mongoDB as event store</description>
+
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>NashTech-Labs</name>
+			<url>https://maven.pkg.github.com/NashTech-Labs/axon-mongo-demo-application</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</distributionManagement>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
